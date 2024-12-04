@@ -20,7 +20,7 @@ public class Compuestos {
     private boolean organico;
 
     @Column(name = "peso", nullable = false)
-    private int peso;
+    private double peso;
 
     @Column(name = "explosivo", nullable = false)
     private boolean explosivo;
@@ -49,6 +49,9 @@ public class Compuestos {
     @Column(name = "peligroSalud", nullable = false)
     private boolean peligroSalud;
 
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
+
     public Long getId() {
         return id;
     }
@@ -73,7 +76,7 @@ public class Compuestos {
         this.organico = organico;
     }
 
-    public int getPeso() {
+    public double getPeso() {
         return peso;
     }
 
@@ -151,5 +154,35 @@ public class Compuestos {
 
     public void setPeligroSalud(boolean peligroSalud) {
         this.peligroSalud = peligroSalud;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Compuestos() {
+    }
+    public Compuestos(String nombreCompuesto, boolean organico, int peso, boolean explosivo, boolean inflamable, boolean carburante, boolean presion, boolean corrosion, boolean toxicidad, boolean quimicoNocivo, boolean medioAmbiente, boolean peligroSalud, String descripcion) {
+        this.nombreCompuesto = nombreCompuesto;
+        this.organico = organico;
+        this.peso = peso;
+        this.explosivo = explosivo;
+        this.inflamable = inflamable;
+        this.carburante = carburante;
+        this.presion = presion;
+        this.corrosion = corrosion;
+        this.toxicidad = toxicidad;
+        this.quimicoNocivo = quimicoNocivo;
+        this.medioAmbiente = medioAmbiente;
+        this.peligroSalud = peligroSalud;
+        this.descripcion = descripcion;
     }
 }
