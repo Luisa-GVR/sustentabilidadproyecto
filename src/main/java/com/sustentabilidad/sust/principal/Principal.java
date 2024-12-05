@@ -131,6 +131,11 @@ public class Principal extends  JFrame implements CommandLineRunner {
                 // Acción para la entrada de compuestos
                 // lista de compuestos
                 List<Compuestos> listaCompuestos = compuestosRepository.findAll();
+                if (listaCompuestos.isEmpty()){
+                    JOptionPane.showMessageDialog(Principal.this,
+                            "La tabla de compuestos está vacía");
+                    return;
+                }
 
                 // muestra lal lista
                 String[] compuestosNombres = new String[listaCompuestos.size()];
@@ -197,7 +202,11 @@ public class Principal extends  JFrame implements CommandLineRunner {
             public void actionPerformed(ActionEvent e) {
                 // lista de compuestos
                 List<Compuestos> listaCompuestos = compuestosRepository.findAll();
-
+                if (listaCompuestos.isEmpty()){
+                    JOptionPane.showMessageDialog(Principal.this,
+                            "La tabla de compuestos está vacía");
+                    return;
+                }
                 // muestra lal lista
                 String[] compuestosNombres = new String[listaCompuestos.size()];
                 for (int i = 0; i < listaCompuestos.size(); i++) {
