@@ -7,10 +7,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 @Component
 public class Principal extends  JFrame implements CommandLineRunner {
@@ -19,6 +21,38 @@ public class Principal extends  JFrame implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
+        try {
+            // Cambiar el "look and feel" a Nimbus
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+
+            // Personalizar propiedades globales
+            UIManager.put("control", new Color(37, 37, 37)); // Fondo general
+            UIManager.put("info", new Color(50, 50, 50)); // Fondo de tooltips
+            UIManager.put("nimbusBase", new Color(127, 123, 130)); // Color base de Nimbus
+            UIManager.put("nimbusFocus", new Color(115, 135, 123)); // Color de foco
+            UIManager.put("nimbusLightBackground", new Color(37, 37, 37)); // Fondo de cuadros de texto
+            UIManager.put("nimbusSelectionBackground", new Color(30, 144, 255)); // Texto seleccionado
+            UIManager.put("nimbusSelectedText", new Color(60, 59, 61)); // Fondo de selección
+            UIManager.put("text", new Color(127, 123, 130)); // Texto general
+            UIManager.put("defaultFont", new Font("Arial", Font.PLAIN, 14));
+
+            UIManager.put("Button.background", new Color(37, 37, 37)); // Fondo del botón
+
+            UIManager.put("TableHeader.background", new Color(60, 59, 61)); // Fondo del encabezado
+            UIManager.put("TableHeader.foreground", new Color(0,0,0)); // Texto del encabezado
+            UIManager.put("TableHeader.font", new Font("Arial", Font.BOLD, 14)); // Fuente del encabezado
+
+
+
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -34,19 +68,24 @@ public class Principal extends  JFrame implements CommandLineRunner {
 
     @Autowired
     public Principal(CompuestosRepository compuestosRepository) {
+
         // Configuración del frame
         setTitle("Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 400); // Tamaño del frame
+        setSize(600, 400); // Tamaño del frame
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
-        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Espaciado
+        contentPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Espaciado
         contentPane.setLayout(new GridLayout(6, 1, 10, 10)); // Configuración de la rejilla
         setContentPane(contentPane);
+        contentPane.setBackground(new Color(37,37,37));
 
         // Título
         JLabel titleLabel = new JLabel("Menú Principal", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(new Color(251,254,249));
         contentPane.add(titleLabel);
+
 
         // Botón Añadir compuestos
         JButton btnAñadirCompuestos = createMenuButton("Añadir compuestos");
@@ -76,10 +115,16 @@ public class Principal extends  JFrame implements CommandLineRunner {
                 // Crear la ventana de información de compuestos
                 JFrame frameTabla = new JFrame("Información de Compuestos");
                 frameTabla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frameTabla.setSize(800, 400);  // Ajusta el tamaño según sea necesario
+                frameTabla.setSize(1200, 400);  // Ajusta el tamaño según sea necesario
+                frameTabla.setLocationRelativeTo(null);
 
                 // Obtener datos de la base de datos
                 List<Compuestos> listaCompuestos = compuestosRepository.findAll(); // Usa tu repositorio
+                if (listaCompuestos.isEmpty()){
+                    JOptionPane.showMessageDialog(Principal.this,
+                            "La tabla de compuestos está vacía");
+                    return;
+                }
                 String[] columnNames = {
                         "Nombre del compuesto", "Orgánico/Inorgánico", "Peso",
                         "Explosivo", "Inflamable", "Carburante", "Presión",
@@ -131,11 +176,6 @@ public class Principal extends  JFrame implements CommandLineRunner {
                 // Acción para la entrada de compuestos
                 // lista de compuestos
                 List<Compuestos> listaCompuestos = compuestosRepository.findAll();
-                if (listaCompuestos.isEmpty()){
-                    JOptionPane.showMessageDialog(Principal.this,
-                            "La tabla de compuestos está vacía");
-                    return;
-                }
 
                 // muestra lal lista
                 String[] compuestosNombres = new String[listaCompuestos.size()];
@@ -162,6 +202,11 @@ public class Principal extends  JFrame implements CommandLineRunner {
                     if (c.getNombreCompuesto().equals(compuestoSeleccionado)) {
                         compuesto = c;
                         break;
+                    }
+                    if (listaCompuestos.isEmpty()){
+                        JOptionPane.showMessageDialog(Principal.this,
+                                "La tabla de compuestos está vacía");
+                        return;
                     }
                 }
 
@@ -202,11 +247,7 @@ public class Principal extends  JFrame implements CommandLineRunner {
             public void actionPerformed(ActionEvent e) {
                 // lista de compuestos
                 List<Compuestos> listaCompuestos = compuestosRepository.findAll();
-                if (listaCompuestos.isEmpty()){
-                    JOptionPane.showMessageDialog(Principal.this,
-                            "La tabla de compuestos está vacía");
-                    return;
-                }
+
                 // muestra lal lista
                 String[] compuestosNombres = new String[listaCompuestos.size()];
                 for (int i = 0; i < listaCompuestos.size(); i++) {
@@ -332,8 +373,8 @@ public class Principal extends  JFrame implements CommandLineRunner {
 
         // Campo de texto para las notas adicionales
         JPanel descPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel descLabel = new JLabel("Notas extra:");
-        JTextArea descArea = new JTextArea(5, 20);
+        JLabel descLabel = new JLabel("Descripción:");
+        JTextArea descArea = new JTextArea(5, 26);
         descArea.setLineWrap(true);
         descArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(descArea);
@@ -370,4 +411,6 @@ public class Principal extends  JFrame implements CommandLineRunner {
 
 
 
+
 }
+
