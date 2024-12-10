@@ -170,6 +170,7 @@ public class Compuestos {
 
     public Compuestos() {
     }
+
     public Compuestos(String nombreCompuesto, boolean organico, int peso, boolean explosivo, boolean inflamable, boolean carburante, boolean presion, boolean corrosion, boolean toxicidad, boolean quimicoNocivo, boolean medioAmbiente, boolean peligroSalud, String descripcion) {
         this.nombreCompuesto = nombreCompuesto;
         this.organico = organico;

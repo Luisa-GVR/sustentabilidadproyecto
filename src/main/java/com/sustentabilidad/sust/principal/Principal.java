@@ -1,10 +1,15 @@
 package com.sustentabilidad.sust.principal;
 
 import com.sustentabilidad.sust.model.Compuestos;
+import com.sustentabilidad.sust.model.Movimientos;
 import com.sustentabilidad.sust.repository.CompuestosRepository;
+import com.sustentabilidad.sust.repository.MovimientosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -18,6 +23,8 @@ import java.awt.event.ActionListener;
 public class Principal extends  JFrame implements CommandLineRunner {
     private JPanel contentPane;
     private CompuestosRepository compuestosRepository;
+    private MovimientosRepository movimientosRepository;
+
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -67,7 +74,7 @@ public class Principal extends  JFrame implements CommandLineRunner {
     }
 
     @Autowired
-    public Principal(CompuestosRepository compuestosRepository) {
+    public Principal(CompuestosRepository compuestosRepository, MovimientosRepository movimientosRepository) {
 
         // Configuración del frame
         setTitle("Menú Principal");
@@ -76,7 +83,7 @@ public class Principal extends  JFrame implements CommandLineRunner {
         setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Espaciado
-        contentPane.setLayout(new GridLayout(6, 1, 10, 10)); // Configuración de la rejilla
+        contentPane.setLayout(new GridLayout(7, 1, 10, 10)); // Configuración de la rejilla
         setContentPane(contentPane);
         contentPane.setBackground(new Color(37,37,37));
 
@@ -96,6 +103,12 @@ public class Principal extends  JFrame implements CommandLineRunner {
                 if (compuestoNuevo != null) {
                     // Guardar en la base de datos
                     compuestosRepository.save(compuestoNuevo);
+                    LocalDateTime fecha = LocalDateTime.now();
+                    String movimiento = "Se ha agregado un nuevo compuesto a la base de datos; " + compuestoNuevo.getNombreCompuesto();
+                    Movimientos nuevoMovimiento = new Movimientos(fecha, movimiento);
+                    movimientosRepository.save(nuevoMovimiento);
+
+
                     JOptionPane.showMessageDialog(Principal.this, "Compuesto añadido exitosamente.");
                 } else {
                     JOptionPane.showMessageDialog(Principal.this, "Operación cancelada.");
@@ -232,6 +245,13 @@ public class Principal extends  JFrame implements CommandLineRunner {
                     JOptionPane.showMessageDialog(Principal.this,
                             "La entrada de compuestos se ha registrado correctamente.");
 
+                    LocalDateTime fecha = LocalDateTime.now();
+                    String movimiento = "Se han añadido " + cantidadAgregada + " kg/lts del compuesto de nombre: " + compuestoSeleccionado +
+                            ". En total se tiene " + nuevoPeso + " kg/lts del compuesto.";
+                    Movimientos nuevoMovimiento = new Movimientos(fecha, movimiento);
+                    movimientosRepository.save(nuevoMovimiento);
+
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(Principal.this,
                             "Por favor, ingresa un número válido.",
@@ -302,6 +322,13 @@ public class Principal extends  JFrame implements CommandLineRunner {
                     JOptionPane.showMessageDialog(Principal.this,
                             "La salida de compuestos se ha registrado correctamente.");
 
+                    LocalDateTime fecha = LocalDateTime.now();
+                    String movimiento = "Se han extraído " + cantidadSacada + " kg/lts del compuesto de nombre: " + compuestoSeleccionado +
+                            ". En total se tiene " + nuevoPeso + " kg/lts del compuesto.";
+                    Movimientos nuevoMovimiento = new Movimientos(fecha, movimiento);
+                    movimientosRepository.save(nuevoMovimiento);
+
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(Principal.this,
                             "Por favor, ingresa un número válido.",
@@ -312,6 +339,50 @@ public class Principal extends  JFrame implements CommandLineRunner {
         });
         contentPane.add(btnSalidaCompuestos);
 
+
+        // Botón Historial de movimientos
+        JButton btnHistorialMovimientos = createMenuButton("Historial de movimientos");
+        btnHistorialMovimientos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Recuperar los datos de la base de datos
+                List<Movimientos> movimientos = movimientosRepository.findAll();
+
+                if (movimientos.isEmpty()) {
+                    JOptionPane.showMessageDialog(Principal.this,
+                            "La tabla de movimientos está vacía");
+                    return;
+                }
+
+                // Crear los encabezados de la tabla
+                String[] columnNames = {"Fecha", "Movimiento"};
+
+                // Convertir los datos en un formato adecuado para JTable
+                Object[][] data = new Object[movimientos.size()][2];
+                for (int i = 0; i < movimientos.size(); i++) {
+                    Movimientos movimiento = movimientos.get(i);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                    data[i][0] = movimiento.getFecha().format(formatter);
+                    data[i][1] = movimiento.getMovimiento();
+                }
+
+                // Crear un JFrame para mostrar la tabla
+                JFrame frameTabla = new JFrame("Historial de Movimientos");
+                frameTabla.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameTabla.setSize(800, 400); // Tamaño inicial del JFrame
+                frameTabla.setLocationRelativeTo(null); // Centrar la ventana
+
+                // Crear la JTable y agregarla a un JScrollPane
+                JTable table = new JTable(data, columnNames);
+                JScrollPane scrollPane = new JScrollPane(table);
+
+                // Configurar el JFrame
+                frameTabla.add(scrollPane);
+                frameTabla.setVisible(true); // Hacer visible la ventana
+            }
+        });
+
+
+        contentPane.add(btnHistorialMovimientos);
 
         // Botón Salir
         JButton btnSalir = createMenuButton("Salir");
