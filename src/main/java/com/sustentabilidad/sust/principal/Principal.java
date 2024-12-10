@@ -420,36 +420,43 @@ public class Principal extends  JFrame implements CommandLineRunner {
         panel.add(namePanel);
 
         // Checkboxes para las propiedades
-        Icon organicoSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/organico.png");
+        Icon organicoSelectedIcon = new ImageIcon(getClass().getResource("/iconos/organico.png"));
         Image scaledImage = ((ImageIcon) organicoSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconOrganico = new ImageIcon(scaledImage);
+
         JCheckBox organico = new JCheckBox("Orgánico");
         organico.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         organico.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         organico.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         organico.setSelectedIcon(resizedIconOrganico);
 
-        Icon explosivoSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/explosivo.png");
+        Icon explosivoSelectedIcon = new ImageIcon(getClass().getResource("/iconos/explosivo.png"));
         Image scaledImage1 = ((ImageIcon) explosivoSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconExplosivo = new ImageIcon(scaledImage1);
+
+
         JCheckBox explosivo = new JCheckBox("Peligro de explosivos");
         explosivo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         explosivo.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         explosivo.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         explosivo.setSelectedIcon(resizedIconExplosivo);
 
-        Icon inflamableSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/inflamable.png");
+        Icon inflamableSelectedIcon =new ImageIcon(getClass().getResource("/iconos/inflamable.png"));
         Image scaledImage2 = ((ImageIcon) inflamableSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconInflamable = new ImageIcon(scaledImage2);
+
+
         JCheckBox inflamable = new JCheckBox("Inflamable");
         inflamable.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         inflamable.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         inflamable.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         inflamable.setSelectedIcon(resizedIconInflamable);
 
-        Icon carburanteSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/carburante.png");
+        Icon carburanteSelectedIcon =new ImageIcon(getClass().getResource("/iconos/carburante.png"));
         Image scaledImage3 = ((ImageIcon)  carburanteSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconCarburante = new ImageIcon(scaledImage3);
+
+
         JCheckBox carburante = new JCheckBox("Carburante");
         carburante.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         carburante.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
@@ -457,54 +464,66 @@ public class Principal extends  JFrame implements CommandLineRunner {
         carburante.setSelectedIcon(resizedIconCarburante);
 
 
-        Icon presionSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/presion.png");
+        Icon presionSelectedIcon = new ImageIcon(getClass().getResource("/iconos/presion.png"));
         Image scaledImage4 = ((ImageIcon) presionSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconPresion = new ImageIcon(scaledImage4);
+
+
         JCheckBox presion = new JCheckBox("Gases bajo presión");
         presion.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         presion.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         presion.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         presion.setSelectedIcon(resizedIconPresion);
 
-        Icon corrosionSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/corrosion.png");
+        Icon corrosionSelectedIcon = new ImageIcon(getClass().getResource("/iconos/corrosion.png"));
         Image scaledImage5 = ((ImageIcon) corrosionSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconCorrosion = new ImageIcon(scaledImage5);
+
+
         JCheckBox corrosion = new JCheckBox("Corrosión");
         corrosion.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         corrosion.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         corrosion.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         corrosion.setSelectedIcon(resizedIconCorrosion);
 
-        Icon toxicidadSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/toxicidad.png");
+        Icon toxicidadSelectedIcon = new ImageIcon(getClass().getResource("/iconos/toxicidad.png"));
         Image scaledImage6 = ((ImageIcon) toxicidadSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconToxicidad = new ImageIcon(scaledImage6);
+
+
         JCheckBox toxicidad = new JCheckBox("Toxicidad");
         toxicidad.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         toxicidad.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         toxicidad.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         toxicidad.setSelectedIcon(resizedIconToxicidad);
 
-        Icon nocivoSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/nocivo.png");
+        Icon nocivoSelectedIcon = new ImageIcon(getClass().getResource("/iconos/nocivo.png"));
         Image scaledImage7 = ((ImageIcon) nocivoSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconNocivo = new ImageIcon(scaledImage7);
+
+
         JCheckBox quimicoNocivo = new JCheckBox("Químico nocivo");
         quimicoNocivo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         quimicoNocivo.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         quimicoNocivo.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         quimicoNocivo.setSelectedIcon(resizedIconNocivo);
 
-        Icon ambienteSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/ambiente.png");
+        Icon ambienteSelectedIcon = new ImageIcon(getClass().getResource("/iconos/ambiente.png"));
         Image scaledImage8 = ((ImageIcon) ambienteSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconAmbiente = new ImageIcon(scaledImage8);
+
+
         JCheckBox medioAmbiente = new JCheckBox("Daño al medio ambiente");
         medioAmbiente.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         medioAmbiente.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
         medioAmbiente.setBorder(new EmptyBorder(0, 0, 5, 0)); // Margen alrededor del JCheckBox
         medioAmbiente.setSelectedIcon(resizedIconAmbiente);
 
-        Icon peligroSelectedIcon = new ImageIcon("src/main/java/com/sustentabilidad/sust/principal/iconos/peligro.png");
+        Icon peligroSelectedIcon = new ImageIcon(getClass().getResource("/iconos/peligro.png"));
         Image scaledImage9 = ((ImageIcon) peligroSelectedIcon).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         Icon resizedIconPeligro = new ImageIcon(scaledImage9);
+
+
         JCheckBox peligroSalud = new JCheckBox("Peligro para la salud");
         peligroSalud.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Márgenes internos
         peligroSalud.setMaximumSize(new Dimension(Integer.MAX_VALUE, organico.getPreferredSize().height));
@@ -552,6 +571,11 @@ public class Principal extends  JFrame implements CommandLineRunner {
             boolean isMedioAmbiente = medioAmbiente.isSelected();
             boolean isPeligroSalud = peligroSalud.isSelected();
             String descripcion = descArea.getText();
+
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El nombre del compuesto es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
 
             // Crear y retornar un objeto Compuesto
             return new Compuestos(nombre, isOrganico, 0, isExplosivo, isInflamable, isCarburante,
